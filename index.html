@@ -47,7 +47,10 @@
                         <button data-contexto="long" class="app__card-button app__card-button--longo">Descanso longo</button>
                     </li>
                 </ul>
-                <div id="timer" class="app__card-timer"></div>
+                <div class="timer-wrapper">
+                    <label for="timer">Tempo:</label>
+                    <input type="text" id="timer" class="app__card-timer-display" value="25:00" maxlength="5">
+                </div>
                 <ul class="app__card-list">
                     <li class="app__card-list-item">
                         <label class="toggle">

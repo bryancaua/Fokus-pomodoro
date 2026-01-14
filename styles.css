@@ -177,6 +177,97 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 150%;
 }
 
+.timer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 10px; /* Adiciona um espaço abaixo de cada timer */
+}
+
+.timer label {
+    font-family: Montserrat;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    margin-top: 5px; /* Espaço entre o label e o input */
+    color: var(--color-secondary); /* Cor do texto do label */
+}
+
+.timer input[type="number"] {
+    color: var(--color-secondary);
+    background: none;
+    border: none;
+    text-align: center;
+    font-family: Unbounded;
+    font-size: 12rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin: 0.25rem;
+    text-align: center;
+    cursor: pointer;
+}
+
+/* Estilo para quando o input está em foco */
+.timer input[type="number"]:focus {
+  border-color: #66afe9;
+  outline: 0;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+}
+
+.app__card-timer-display {
+    color: var(--color-secondary);
+    background: none;
+    border: none;
+    text-align: center;
+    font-family: Unbounded;
+    font-size: 12rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin: 3.2rem;
+    width: 100%;
+    cursor: pointer;
+    outline: none;
+}
+
+/* Remove setas do input number (caso ainda apareçam) */
+.app__card-timer-display::-webkit-outer-spin-button,
+.app__card-timer-display::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Estilo quando o input está em foco */
+.app__card-timer-display:focus {
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+/* Wrapper do timer */
+.timer-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem 0;
+}
+
+.timer-wrapper label {
+    font-family: Montserrat;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    margin-bottom: 1rem;
+    color: var(--color-secondary);
+}
+
+.hidden {
+  display: none !important; /* !important para garantir que a classe tenha prioridade */
+}
+
 /* toggle */
 .toggle {
     cursor: pointer;
