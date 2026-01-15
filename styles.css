@@ -115,18 +115,6 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
 }
 
-.app__card-timer {
-    color: var(--color-secondary);
-    text-align: center;
-    font-family: Unbounded;
-    font-size: 12rem;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    margin: 3.2rem;
-    text-align: center;
-}
-
 .app__card-list-label {
     color: var(--color-secondary);
     font-family: Montserrat;
@@ -337,7 +325,7 @@ h1, h2, h3, h4, h5, h6 {
         font-size: 2.6rem;
     }
 
-    .app__card-timer {
+    .app__card-timer-display {
         font-size: 6rem;
     }
 }
