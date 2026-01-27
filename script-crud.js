@@ -1,9 +1,14 @@
 const btnAdicionarTarefa = document.querySelector('.app__button--add-task');
+const btnCancelarTarefa = document.querySelector('.app__form-footer__button--cancel');
 const formAdicionarTarefa = document.querySelector('.app__form-add-task');
 const textArea = document.querySelector('.app__form-textarea');
 const ulTarefas = document.querySelector('.app__section-task-list');
 
 const tarefas = JSON.parse(localStorage.getItem('tarefas')) || [];
+
+function atualizarTarefa () {
+    localStorage.setItem('tarefas', JSON.stringify(tarefas));
+}
 
 function criarElementoTarefa(tarefa) {
     const li = document.createElement('li');
@@ -25,6 +30,13 @@ function criarElementoTarefa(tarefa) {
     const botao = document.createElement('p');
     botao.classList.add('app_button-edit');
 
+    botao.onclick = ()  => {
+        const novaDescricaoTarefa = prompt("Qual sua nova tarefa?");
+        paragrafo.textContent = novaDescricaoTarefa;
+        tarefa.descricao = novaDescricaoTarefa;
+        atualizarTarefa();
+    }
+
     const imagemBotao = document.createElement('img');
     imagemBotao.setAttribute('src', '/imagens/edit.png');
     botao.append(imagemBotao);
@@ -40,20 +52,29 @@ btnAdicionarTarefa.addEventListener('click', () => {
     formAdicionarTarefa.classList.toggle('hidden');
 })
 
+const limparFormulario = () => {
+    textArea.value = '';  
+    formAdicionarTarefa.classList.add('hidden');
+}
+
+btnCancelarTarefa.addEventListener('click', limparFormulario);
+
+
+
 formAdicionarTarefa.addEventListener('submit', (evento) => {
     evento.preventDefault();
     const tarefa = {
         descricao: textArea.value
     }
     tarefas.push(tarefa);
-    const elementoTarefa = criarElementoTarefa(tarefa);
+    const elementoTarefa = criarElementoTarefa(tarefa); //serve para CRIAR as tarefas e adicionar á ul e após isso são armazenadas no localStorage
     ulTarefas.append(elementoTarefa);
-    localStorage.setItem('tarefas', JSON.stringify(tarefas));
+    atualizarTarefa();
     textArea.value = '';
     formAdicionarTarefa.classList.add('hidden');
 })
 
-tarefas.forEach(tarefa => {
+tarefas.forEach(tarefa => { //serve para mostrar as tarefas que foram criadas e estão guardadas localmente ao recarregar a página.
     const elementoTarefa = criarElementoTarefa(tarefa);
     ulTarefas.append(elementoTarefa);
 });
