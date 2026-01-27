@@ -20,9 +20,11 @@ function criarElementoTarefa(tarefa) {
     `
     const paragrafo = document.createElement('p');
     paragrafo.textContent = tarefa.descricao;
+    paragrafo.classList.add('app__section-task-list-item-description')
 
     const botao = document.createElement('p');
-    botao.classList.add('app_button', 'app_button--edit');
+    botao.classList.add('app_button-edit');
+
     const imagemBotao = document.createElement('img');
     imagemBotao.setAttribute('src', '/imagens/edit.png');
     botao.append(imagemBotao);
@@ -44,7 +46,11 @@ formAdicionarTarefa.addEventListener('submit', (evento) => {
         descricao: textArea.value
     }
     tarefas.push(tarefa);
+    const elementoTarefa = criarElementoTarefa(tarefa);
+    ulTarefas.append(elementoTarefa);
     localStorage.setItem('tarefas', JSON.stringify(tarefas));
+    textArea.value = '';
+    formAdicionarTarefa.classList.add('hidden');
 })
 
 tarefas.forEach(tarefa => {
