@@ -32,9 +32,11 @@ function criarElementoTarefa(tarefa) {
 
     botao.onclick = ()  => {
         const novaDescricaoTarefa = prompt("Qual sua nova tarefa?");
-        paragrafo.textContent = novaDescricaoTarefa;
-        tarefa.descricao = novaDescricaoTarefa;
-        atualizarTarefa();
+        if (novaDescricaoTarefa) {
+            paragrafo.textContent = novaDescricaoTarefa;
+            tarefa.descricao = novaDescricaoTarefa;
+            atualizarTarefa();
+        } 
     }
 
     const imagemBotao = document.createElement('img');
@@ -74,7 +76,7 @@ formAdicionarTarefa.addEventListener('submit', (evento) => {
     formAdicionarTarefa.classList.add('hidden');
 })
 
-tarefas.forEach(tarefa => { //serve para mostrar as tarefas que foram criadas e estão guardadas localmente ao recarregar a página.
+tarefas.forEach(tarefa => { //serve para MOSTRAR as tarefas que foram criadas anteriormente e estão guardadas localmente ao recarregar a página.
     const elementoTarefa = criarElementoTarefa(tarefa);
     ulTarefas.append(elementoTarefa);
 });
