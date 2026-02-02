@@ -3,8 +3,11 @@ const btnCancelarTarefa = document.querySelector('.app__form-footer__button--can
 const formAdicionarTarefa = document.querySelector('.app__form-add-task');
 const textArea = document.querySelector('.app__form-textarea');
 const ulTarefas = document.querySelector('.app__section-task-list');
+const descricaoTarefaAndamento = document.querySelector('.app__section-active-task-description');
 
 const tarefas = JSON.parse(localStorage.getItem('tarefas')) || [];
+
+let tarefaSelecionada = null;
 
 function atualizarTarefa () {
     localStorage.setItem('tarefas', JSON.stringify(tarefas));
@@ -27,10 +30,10 @@ function criarElementoTarefa(tarefa) {
     paragrafo.textContent = tarefa.descricao;
     paragrafo.classList.add('app__section-task-list-item-description')
 
-    const botao = document.createElement('p');
-    botao.classList.add('app_button-edit');
+    const botao__edicao = document.createElement('p');
+    botao__edicao.classList.add('app_button-edit');
 
-    botao.onclick = ()  => {
+    botao__edicao.onclick = () => {
         const novaDescricaoTarefa = prompt("Qual sua nova tarefa?");
         if (novaDescricaoTarefa) {
             paragrafo.textContent = novaDescricaoTarefa;
@@ -41,11 +44,27 @@ function criarElementoTarefa(tarefa) {
 
     const imagemBotao = document.createElement('img');
     imagemBotao.setAttribute('src', '/imagens/edit.png');
-    botao.append(imagemBotao);
+    botao__edicao.append(imagemBotao);
 
     li.appendChild(svg);
     li.appendChild(paragrafo);
-    li.appendChild(botao);
+    li.appendChild(botao__edicao);
+
+    li.onclick = () => {
+        document.querySelectorAll('.app__section-task-list-item-active')
+        .forEach(elemento => {
+                elemento.classList.remove('app__section-task-list-item-active');
+        });
+        if(tarefaSelecionada == tarefa) {
+            descricaoTarefaAndamento.textContent = '';
+            tarefaSelecionada = null;
+            return;
+        }
+        tarefaSelecionada = tarefa;
+        descricaoTarefaAndamento.textContent = tarefa.descricao;
+
+        li.classList.add('app__section-task-list-item-active');
+    }
 
     return li;
 }
@@ -60,8 +79,6 @@ const limparFormulario = () => {
 }
 
 btnCancelarTarefa.addEventListener('click', limparFormulario);
-
-
 
 formAdicionarTarefa.addEventListener('submit', (evento) => {
     evento.preventDefault();
