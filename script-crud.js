@@ -8,6 +8,7 @@ const descricaoTarefaAndamento = document.querySelector('.app__section-active-ta
 const tarefas = JSON.parse(localStorage.getItem('tarefas')) || [];
 
 let tarefaSelecionada = null;
+let liTarefaSelecionada = null;
 
 function atualizarTarefa () {
     localStorage.setItem('tarefas', JSON.stringify(tarefas));
@@ -30,7 +31,7 @@ function criarElementoTarefa(tarefa) {
     paragrafo.textContent = tarefa.descricao;
     paragrafo.classList.add('app__section-task-list-item-description')
 
-    const botao__edicao = document.createElement('p');
+    const botao__edicao = document.createElement('button');
     botao__edicao.classList.add('app_button-edit');
 
     botao__edicao.onclick = () => {
@@ -58,9 +59,11 @@ function criarElementoTarefa(tarefa) {
         if(tarefaSelecionada == tarefa) {
             descricaoTarefaAndamento.textContent = '';
             tarefaSelecionada = null;
+            liTarefaSelecionada = null;
             return;
         }
         tarefaSelecionada = tarefa;
+        liTarefaSelecionada = li;
         descricaoTarefaAndamento.textContent = tarefa.descricao;
 
         li.classList.add('app__section-task-list-item-active');
@@ -97,5 +100,14 @@ tarefas.forEach(tarefa => { //serve para MOSTRAR as tarefas que foram criadas an
     const elementoTarefa = criarElementoTarefa(tarefa);
     ulTarefas.append(elementoTarefa);
 });
+
+document.addEventListener('FocoFinalizado', () => {
+    if(tarefaSelecionada && liTarefaSelecionada) {
+        liTarefaSelecionada.classList.remove('app__section-task-list-item-active');
+        liTarefaSelecionada.classList.add('app__section-task-list-item-complete');
+        liTarefaSelecionada.querySelector('button').setAttribute('disabled', 'disabled');
+    }
+
+})
 
 
