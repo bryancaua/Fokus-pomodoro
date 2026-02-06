@@ -4,8 +4,9 @@ const formAdicionarTarefa = document.querySelector('.app__form-add-task');
 const textArea = document.querySelector('.app__form-textarea');
 const ulTarefas = document.querySelector('.app__section-task-list');
 const descricaoTarefaAndamento = document.querySelector('.app__section-active-task-description');
+const apagarTarefasConcluidas = document.getElementById('btn-remover-concluidas');
 
-const tarefas = JSON.parse(localStorage.getItem('tarefas')) || [];
+let tarefas = JSON.parse(localStorage.getItem('tarefas')) || [];
 
 let tarefaSelecionada = null;
 let liTarefaSelecionada = null;
@@ -116,7 +117,15 @@ document.addEventListener('FocoFinalizado', () => {
         tarefaSelecionada.completa = true;
         atualizarTarefa();
     }
-
 })
+
+apagarTarefasConcluidas.onclick = () => {
+    const seletor = ".app__section-task-list-item-complete";
+    document.querySelectorAll(seletor).forEach(tarefa => {
+        tarefa.remove();
+    })
+    tarefas = tarefas.filter(tarefa =>  !tarefa.completa);
+    atualizarTarefa();
+}
 
 
