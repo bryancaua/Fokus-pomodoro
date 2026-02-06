@@ -51,23 +51,30 @@ function criarElementoTarefa(tarefa) {
     li.appendChild(paragrafo);
     li.appendChild(botao__edicao);
 
-    li.onclick = () => {
-        document.querySelectorAll('.app__section-task-list-item-active')
-        .forEach(elemento => {
-                elemento.classList.remove('app__section-task-list-item-active');
-        });
-        if(tarefaSelecionada == tarefa) {
-            descricaoTarefaAndamento.textContent = '';
-            tarefaSelecionada = null;
-            liTarefaSelecionada = null;
-            return;
-        }
-        tarefaSelecionada = tarefa;
-        liTarefaSelecionada = li;
-        descricaoTarefaAndamento.textContent = tarefa.descricao;
+    if (tarefa.completa) {
+        li.classList.add('app__section-task-list-item-complete')
+        botao__edicao.setAttribute('disabled', 'disabled');
+    } else {
+        li.onclick = () => {
+            document.querySelectorAll('.app__section-task-list-item-active')
+            .forEach(elemento => {
+                    elemento.classList.remove('app__section-task-list-item-active');
+            });
+            if(tarefaSelecionada == tarefa) {
+                descricaoTarefaAndamento.textContent = '';
+                tarefaSelecionada = null;
+                liTarefaSelecionada = null;
+                return;
+            }
+            tarefaSelecionada = tarefa;
+            liTarefaSelecionada = li;
+            descricaoTarefaAndamento.textContent = tarefa.descricao;
 
-        li.classList.add('app__section-task-list-item-active');
+            li.classList.add('app__section-task-list-item-active');
+        }
     }
+
+
 
     return li;
 }
@@ -106,6 +113,8 @@ document.addEventListener('FocoFinalizado', () => {
         liTarefaSelecionada.classList.remove('app__section-task-list-item-active');
         liTarefaSelecionada.classList.add('app__section-task-list-item-complete');
         liTarefaSelecionada.querySelector('button').setAttribute('disabled', 'disabled');
+        tarefaSelecionada.completa = true;
+        atualizarTarefa();
     }
 
 })
